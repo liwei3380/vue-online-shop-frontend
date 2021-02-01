@@ -10,6 +10,15 @@
 <script>
 import ProductForm from '@/components/products/ProductForm.vue';
 export default {
+	data() {
+		return {
+			model: {
+				manufacturer: {
+					name: ''
+				}
+			}
+		}
+	},
 	created() {
 		if (this.manufacturers.length === 0) {
 			this.$store.dispatch('allManufacturers');
@@ -19,9 +28,6 @@ export default {
 		manufacturers() {
 			return this.$store.getters.allManufacturers;
 		},
-		model() {
-			return {};
-		}
 	},
 	methods: {
 		addProduct(model) {

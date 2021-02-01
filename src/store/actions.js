@@ -1,5 +1,8 @@
 import axios from 'axios';
 import {
+	Message
+} from 'element-ui';
+import {
 	ADD_PRODUCT,
 	ADD_PRODUCT_SUCCESS,
 	PRODUCT_BY_ID,
@@ -63,6 +66,12 @@ export const productActions = {
 			commit(REMOVE_PRODUCT_SUCCESS, {
 				productId,
 			});
+			Message({
+				message: '恭喜你，商品删除成功！',
+				type: 'success'
+			})
+		}).catch(() => {
+			Message.error('不好意思，商品删除失败！');
 		})
 	},
 	updateProduct({
@@ -75,8 +84,14 @@ export const productActions = {
 		} = payload;
 		axios.put(`${API_BASE}/products/${product._id}`, product).then(() => {
 			commit(UPDATE_PRODUCT_SUCCESS, {
-				product,
+				product: product,
 			});
+			Message({
+				message: '恭喜你，商品更新成功！',
+				type: 'success'
+			})
+		}).catch(() => {
+			Message.error('不好意思，商品更新失败！');
 		})
 	},
 	addProduct({
@@ -120,6 +135,12 @@ export const manufacturerActions = {
 			commit(REMOVE_MANUFACTURER_SUCCESS, {
 				manufacturerId,
 			});
+			Message({
+				message: '恭喜你，制造商删除成功！',
+				type: 'success'
+			})
+		}).catch(() => {
+			Message.error('不好意思，制造商删除失败！');
 		})
 	},
 	manufacturerById({
@@ -146,8 +167,14 @@ export const manufacturerActions = {
 		} = payload;
 		axios.put(`${API_BASE}/manufacturers/${manufacturer._id}`, manufacturer).then(() => {
 			commit(UPDATE_MANUFACTURER_SUCCESS, {
-				manufacturer,
+				manufacturer: manufacturer,
 			});
+			Message({
+				message: '恭喜你，制造商更新成功！',
+				type: 'success'
+			})
+		}).catch(() => {
+			Message.error('不好意思，制造商更新失败！');
 		})
 	},
 	addManufacturer({
@@ -161,7 +188,13 @@ export const manufacturerActions = {
 		axios.post(`${API_BASE}/manufacturers`, manufacturer).then(response => {
 			commit(ADD_MANUFACTURER_SUCCESS, {
 				manufacturer: response.data,
+			});
+			Message({
+				message: '恭喜你，制造商添加成功！',
+				type: 'success'
 			})
+		}).catch(() => {
+			Message.error('不好意思，制造商添加失败！');
 		})
 	}
 }

@@ -22,6 +22,9 @@ import {
 	REMOVE_MANUFACTURER,
 	REMOVE_MANUFACTURER_SUCCESS,
 } from './mutation-types';
+import {
+	Message
+} from 'element-ui';
 
 export const productMutations = {
 	[ALL_PRODUCTS](state) {
@@ -73,7 +76,9 @@ export const productMutations = {
 			}
 
 			return product;
-		})
+		});
+
+		state.product = newProduct;
 	},
 	[ADD_PRODUCT](state) {
 		state.showLoader = true;
@@ -94,12 +99,20 @@ export const cartMutations = {
 			product
 		} = payload;
 		state.cart.push(product)
+		Message({
+			message: '恭喜你，成功加入购物车！',
+			type: 'success'
+		})
 	},
 	[REMOVE_FROM_CART](state, payload) {
 		const {
 			productId
 		} = payload
 		state.cart = state.cart.filter(product => product._id !== productId)
+		Message({
+			message: '恭喜你，成功移除购物车！',
+			type: 'success'
+		})
 	},
 }
 
@@ -141,7 +154,9 @@ export const manufacturerMutations = {
 			}
 
 			return manufacturer;
-		})
+		});
+
+		state.manufacturer = newManufacturer;
 	},
 	[ADD_MANUFACTURER](state) {
 		state.showLoader = true;

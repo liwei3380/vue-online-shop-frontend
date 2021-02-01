@@ -1,13 +1,17 @@
 <template>
 <div>
-	<button v-if="isAdding" class="button" @click="addToCart">加入购物车</button>
-	<button v-else class="button" @click="removeFromCart(product._id)">从购物车移除</button>
+	<el-button v-if="isAdding" @click="addToCart" type="text" size="small">
+		加入购物车
+	</el-button>
+	<el-button v-else @click="removeFromCart(id)" type="text" size="small">
+		从购物车移除
+	</el-button>
 </div>
 </template>
 
 <script>
 export default {
-	props: ['product'],
+	props: ['id'],
 	computed: {
 		isAdding() {
 			let isAdding = true;
@@ -21,7 +25,11 @@ export default {
 		},
 		cart() {
 			return this.$store.state.cart;
-		}
+		},
+		product() {
+			let product = this.$store.getters.allProducts.find(product => product._id === this.id)
+			return product;
+		},
 	},
 	methods: {
 		addToCart() {
